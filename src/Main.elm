@@ -20,6 +20,7 @@ type alias LoadedModel_ =
     { sound : Audio.Source
     , scene : ( Int, Int )
     , r : Int
+    , p : Int
     , soundState : SoundState
     }
 
@@ -68,13 +69,16 @@ update _ msg model =
 
         ( Frame time, LoadedModel loadedModel ) ->
             let
-                modtime =
+                playtime =
                     case loadedModel.soundState of
                         Playing startTime ->
-                            modBy 10000 (round (Duration.inMilliseconds (Duration.from startTime time)))
+                            round (Duration.inMilliseconds (Duration.from startTime time))
 
                         _ ->
                             0
+
+                modtime =
+                    modBy 10000 playtime
 
                 dif =
                     if modtime < 5000 then
@@ -82,12 +86,12 @@ update _ msg model =
                     else
                         (10000 - modtime) // 50 * 2
             in
-                ( LoadedModel { loadedModel | r = dif }, Cmd.none, Audio.cmdNone )
+                ( LoadedModel { loadedModel | r = dif, p = playtime }, Cmd.none, Audio.cmdNone )
 
         ( SoundLoaded result, LoadingModel ) ->
             case result of
                 Ok sound ->
-                    ( LoadedModel { sound = sound, soundState = NotPlaying, scene = ( 640, 480 ), r = 0 }
+                    ( LoadedModel { sound = sound, soundState = NotPlaying, scene = ( 640, 480 ), r = 0, p = 0 }
                     , Task.perform GotViewport Browser.Dom.getViewport
                     , Audio.cmdNone
                     )
@@ -119,7 +123,7 @@ update _ msg model =
         ( PressedStopAndGotTime stopTime, LoadedModel loadedModel ) ->
             case loadedModel.soundState of
                 Playing startTime ->
-                    ( LoadedModel { loadedModel | soundState = FadingOut startTime stopTime }
+                    ( LoadedModel { loadedModel | soundState = FadingOut startTime stopTime, r = 0, p = 0 }
                     , Cmd.none
                     , Audio.cmdNone
                     )
@@ -156,7 +160,26 @@ exercise_view loadedModel =
     in
         Html.div [ Html.Attributes.style "width" (String.fromInt (Tuple.first loadedModel.scene)), Html.Attributes.style "height" (String.fromInt (Tuple.second loadedModel.scene)), Html.Attributes.class "background" ]
             [ button
+            , progress loadedModel
             , circle loadedModel
+            ]
+
+
+progress loadedModel =
+    let
+        prog =
+            loadedModel.p // 3000 * 4
+    in
+        Svg.svg
+            [ Html.Attributes.style "position" "absolute"
+            , Html.Attributes.style "left" "0"
+            , Html.Attributes.style "top" "32"
+            , Svg.Attributes.width "400"
+            , Svg.Attributes.height "32"
+            , Svg.Attributes.viewBox "0 0 400 32"
+            ]
+            [ Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width "400", Svg.Attributes.height "32", Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "20%" ] []
+            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "64", Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "50%" ] []
             ]
 
 

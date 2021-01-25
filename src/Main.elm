@@ -199,7 +199,11 @@ audio _ model =
                     Audio.silence
 
                 Playing time ->
-                    Audio.audio loadedModel.sound time
+                    let
+                        default =
+                            Audio.audioDefaultConfig
+                    in
+                        Audio.audioWithConfig { default | loop = Just { loopStart = Duration.seconds 0, loopEnd = Duration.seconds 300 } } loadedModel.sound time
 
                 FadingOut startTime stopTime ->
                     Audio.audio loadedModel.sound startTime

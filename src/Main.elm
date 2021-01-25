@@ -196,8 +196,8 @@ progress loadedModel =
             , Svg.Attributes.height "32"
             , Svg.Attributes.viewBox "0 0 400 32"
             ]
-            [ Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width "400", Svg.Attributes.height "32", Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "20%" ] []
-            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "64", Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "50%" ] []
+            [ Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width "400", Svg.Attributes.height "32", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "20%" ] []
+            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "64", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "50%" ] []
             ]
 
 
@@ -226,8 +226,8 @@ circle loadedModel =
             , Svg.Attributes.height "400"
             , Svg.Attributes.viewBox "-200 -200 400 400"
             ]
-            [ Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "200", Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "20%" ] []
-            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r (String.fromInt r), Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "30%" ] []
+            [ Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "200", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "20%" ] []
+            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r (String.fromInt r), Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "30%" ] []
             ]
 
 

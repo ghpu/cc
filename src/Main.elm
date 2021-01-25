@@ -91,7 +91,7 @@ update _ msg model =
         ( SoundLoaded result, LoadingModel ) ->
             case result of
                 Ok sound ->
-                    ( LoadedModel { sound = sound, soundState = NotPlaying, scene = ( 640, 480 ), r = 0, p = 0 }
+                    ( LoadedModel { sound = sound, soundState = NotPlaying, scene = ( 400, 400 + 128 + 32 ), r = 0, p = 0 }
                     , Task.perform GotViewport Browser.Dom.getViewport
                     , Audio.cmdNone
                     )
@@ -153,15 +153,33 @@ exercise_view loadedModel =
         button =
             case loadedModel.soundState of
                 Playing _ ->
-                    Html.button [ Html.Events.onClick PressedStop ] [ Html.text "Stop" ]
+                    Html.button
+                        [ Html.Attributes.style "position" "absolute"
+                        , Html.Attributes.style "left" "0"
+                        , Html.Attributes.style "top" "432"
+                        , Html.Attributes.style "width" "400"
+                        , Html.Attributes.style "height" "128"
+                        , Html.Events.onClick PressedStop
+                        ]
+                        [ Html.text "Stop" ]
 
                 _ ->
-                    Html.button [ Html.Events.onClick PressedPlay ] [ Html.text "Start" ]
+                    Html.button
+                        [ Html.Attributes.style "position" "absolute"
+                        , Html.Attributes.style "left" "0"
+                        , Html.Attributes.style "top" "432"
+                        , Html.Attributes.style "width" "400"
+                        , Html.Attributes.style "height" "128"
+                        , Html.Events.onClick PressedPlay
+                        ]
+                        [ Html.text "Start" ]
     in
         Html.div [ Html.Attributes.style "width" (String.fromInt (Tuple.first loadedModel.scene)), Html.Attributes.style "height" (String.fromInt (Tuple.second loadedModel.scene)), Html.Attributes.class "background" ]
-            [ button
-            , progress loadedModel
-            , circle loadedModel
+            [ Html.div [ Html.Attributes.class "centered" ]
+                [ button
+                , progress loadedModel
+                , circle loadedModel
+                ]
             ]
 
 
@@ -173,7 +191,7 @@ progress loadedModel =
         Svg.svg
             [ Html.Attributes.style "position" "absolute"
             , Html.Attributes.style "left" "0"
-            , Html.Attributes.style "top" "32"
+            , Html.Attributes.style "top" "400"
             , Svg.Attributes.width "400"
             , Svg.Attributes.height "32"
             , Svg.Attributes.viewBox "0 0 400 32"
@@ -202,8 +220,8 @@ circle loadedModel =
     in
         Svg.svg
             [ Html.Attributes.style "position" "absolute"
-            , Html.Attributes.style "left" "100"
-            , Html.Attributes.style "top" "100"
+            , Html.Attributes.style "left" "0"
+            , Html.Attributes.style "top" "0"
             , Svg.Attributes.width "400"
             , Svg.Attributes.height "400"
             , Svg.Attributes.viewBox "-200 -200 400 400"

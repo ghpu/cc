@@ -4,15 +4,22 @@ import Audio exposing (Audio, AudioCmd, AudioData)
 import Duration
 import Html exposing (Html)
 import Html.Events
+import Html.Attributes
 import Json.Decode
 import Json.Encode
 import List.Nonempty exposing (Nonempty(..))
 import Task
 import Time
+import Browser.Dom
+import Browser.Events
+import Svg
+import Svg.Attributes
 
 
 type alias LoadedModel_ =
     { sound : Audio.Source
+    , scene : ( Int, Int )
+    , r : Int
     , soundState : SoundState
     }
 
@@ -35,6 +42,9 @@ type Msg
     | PressedPlayAndGotTime Time.Posix
     | PressedStop
     | PressedStopAndGotTime Time.Posix
+    | Frame Time.Posix
+    | GotViewport Browser.Dom.Viewport
+    | Resize Int Int
 
 
 init : flags -> ( Model, Cmd Msg, AudioCmd Msg )
@@ -43,18 +53,42 @@ init _ =
     , Cmd.none
     , Audio.loadAudio
         SoundLoaded
-        "https://cors-anywhere.herokuapp.com/https://freepd.com/music/Wakka%20Wakka.mp3"
+        "/music.mp3"
     )
 
 
 update : AudioData -> Msg -> Model -> ( Model, Cmd Msg, AudioCmd Msg )
 update _ msg model =
     case ( msg, model ) of
+        ( GotViewport vp, LoadedModel loadedModel ) ->
+            ( LoadedModel { loadedModel | scene = ( round vp.scene.width, round vp.scene.height ) }, Cmd.none, Audio.cmdNone )
+
+        ( Resize width height, LoadedModel loadedModel ) ->
+            ( LoadedModel { loadedModel | scene = ( width, height ) }, Cmd.none, Audio.cmdNone )
+
+        ( Frame time, LoadedModel loadedModel ) ->
+            let
+                modtime =
+                    case loadedModel.soundState of
+                        Playing startTime ->
+                            modBy 10000 (round (Duration.inMilliseconds (Duration.from startTime time)))
+
+                        _ ->
+                            0
+
+                dif =
+                    if modtime < 5000 then
+                        modtime // 50 * 2
+                    else
+                        (10000 - modtime) // 50 * 2
+            in
+                ( LoadedModel { loadedModel | r = dif }, Cmd.none, Audio.cmdNone )
+
         ( SoundLoaded result, LoadingModel ) ->
             case result of
                 Ok sound ->
-                    ( LoadedModel { sound = sound, soundState = NotPlaying }
-                    , Cmd.none
+                    ( LoadedModel { sound = sound, soundState = NotPlaying, scene = ( 640, 480 ), r = 0 }
+                    , Task.perform GotViewport Browser.Dom.getViewport
                     , Audio.cmdNone
                     )
 
@@ -103,20 +137,57 @@ view _ model =
         LoadingModel ->
             Html.text "Loading..."
 
-        LoadedModel loadingModel ->
-            case loadingModel.soundState of
-                Playing _ ->
-                    Html.div
-                        []
-                        [ Html.button [ Html.Events.onClick PressedStop ] [ Html.text "Stop music" ] ]
-
-                _ ->
-                    Html.div
-                        []
-                        [ Html.button [ Html.Events.onClick PressedPlay ] [ Html.text "Play music!" ] ]
+        LoadedModel loadedModel ->
+            exercise_view loadedModel
 
         LoadFailedModel ->
             Html.text "Failed to load sound."
+
+
+exercise_view loadedModel =
+    let
+        button =
+            case loadedModel.soundState of
+                Playing _ ->
+                    Html.button [ Html.Events.onClick PressedStop ] [ Html.text "Stop" ]
+
+                _ ->
+                    Html.button [ Html.Events.onClick PressedPlay ] [ Html.text "Start" ]
+    in
+        Html.div [ Html.Attributes.style "width" (String.fromInt (Tuple.first loadedModel.scene)), Html.Attributes.style "height" (String.fromInt (Tuple.second loadedModel.scene)), Html.Attributes.class "background" ]
+            [ button
+            , circle loadedModel
+            ]
+
+
+circle loadedModel =
+    let
+        xx =
+            (Tuple.first loadedModel.scene) // 2
+
+        yy =
+            (Tuple.second loadedModel.scene) // 2
+
+        r =
+            loadedModel.r
+
+        x =
+            xx - r
+
+        y =
+            yy - r
+    in
+        Svg.svg
+            [ Html.Attributes.style "position" "absolute"
+            , Html.Attributes.style "left" "100"
+            , Html.Attributes.style "top" "100"
+            , Svg.Attributes.width "400"
+            , Svg.Attributes.height "400"
+            , Svg.Attributes.viewBox "-200 -200 400 400"
+            ]
+            [ Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "200", Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "20%" ] []
+            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r (String.fromInt r), Svg.Attributes.fill "blue", Svg.Attributes.fillOpacity "30%" ] []
+            ]
 
 
 audio : AudioData -> Model -> Audio
@@ -144,14 +215,20 @@ port audioPortToJS : Json.Encode.Value -> Cmd msg
 port audioPortFromJS : (Json.Decode.Value -> msg) -> Sub msg
 
 
+subscriptions _ _ =
+    Sub.batch
+        [ Browser.Events.onAnimationFrame Frame
+        , Browser.Events.onResize Resize
+        ]
+
+
 main : Platform.Program () (Audio.Model Msg Model) (Audio.Msg Msg)
 main =
     Audio.elementWithAudio
         { init = init
         , update = update
         , view = view
-        , subscriptions = \_ _ -> Sub.none
+        , subscriptions = subscriptions
         , audio = audio
         , audioPort = { toJS = audioPortToJS, fromJS = audioPortFromJS }
         }
-

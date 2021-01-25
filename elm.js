@@ -7690,7 +7690,51 @@ var $author$project$Main$circle = function (loadedModel) {
 						$elm$svg$Svg$Attributes$cy('0'),
 						$elm$svg$Svg$Attributes$r('200'),
 						$elm$svg$Svg$Attributes$fill('white'),
-						$elm$svg$Svg$Attributes$fillOpacity('20%')
+						$elm$svg$Svg$Attributes$fillOpacity('10%')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$circle,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$cx('0'),
+						$elm$svg$Svg$Attributes$cy('0'),
+						$elm$svg$Svg$Attributes$r('160'),
+						$elm$svg$Svg$Attributes$fill('white'),
+						$elm$svg$Svg$Attributes$fillOpacity('10%')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$circle,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$cx('0'),
+						$elm$svg$Svg$Attributes$cy('0'),
+						$elm$svg$Svg$Attributes$r('120'),
+						$elm$svg$Svg$Attributes$fill('white'),
+						$elm$svg$Svg$Attributes$fillOpacity('10%')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$circle,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$cx('0'),
+						$elm$svg$Svg$Attributes$cy('0'),
+						$elm$svg$Svg$Attributes$r('80'),
+						$elm$svg$Svg$Attributes$fill('white'),
+						$elm$svg$Svg$Attributes$fillOpacity('10%')
+					]),
+				_List_Nil),
+				A2(
+				$elm$svg$Svg$circle,
+				_List_fromArray(
+					[
+						$elm$svg$Svg$Attributes$cx('0'),
+						$elm$svg$Svg$Attributes$cy('0'),
+						$elm$svg$Svg$Attributes$r('40'),
+						$elm$svg$Svg$Attributes$fill('white'),
+						$elm$svg$Svg$Attributes$fillOpacity('10%')
 					]),
 				_List_Nil),
 				A2(

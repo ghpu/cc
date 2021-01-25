@@ -216,7 +216,11 @@ circle loadedModel =
             , Svg.Attributes.height "400"
             , Svg.Attributes.viewBox "-200 -200 400 400"
             ]
-            [ Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "200", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "20%" ] []
+            [ Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "200", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "10%" ] []
+            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "160", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "10%" ] []
+            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "120", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "10%" ] []
+            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "80", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "10%" ] []
+            , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r "40", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "10%" ] []
             , Svg.circle [ Svg.Attributes.cx "0", Svg.Attributes.cy "0", Svg.Attributes.r (String.fromInt r), Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "30%" ] []
             ]
 

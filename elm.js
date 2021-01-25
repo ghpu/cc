@@ -4771,7 +4771,7 @@ var $author$project$Main$audio = F2(
 							{
 								a3: $elm$core$Maybe$Just(
 									{
-										a4: $ianmackenzie$elm_units$Duration$seconds(300),
+										a4: $ianmackenzie$elm_units$Duration$seconds(60),
 										a5: $ianmackenzie$elm_units$Duration$seconds(0)
 									})
 							}),

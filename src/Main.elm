@@ -238,7 +238,7 @@ audio _ model =
                         default =
                             Audio.audioDefaultConfig
                     in
-                        Audio.audioWithConfig { default | loop = Just { loopStart = Duration.seconds 0, loopEnd = Duration.seconds 300 } } loadedModel.sound time
+                        Audio.audioWithConfig { default | loop = Just { loopStart = Duration.seconds 0, loopEnd = Duration.seconds 60 } } loadedModel.sound time
 
                 FadingOut startTime stopTime ->
                     Audio.audio loadedModel.sound startTime

@@ -154,23 +154,13 @@ exercise_view loadedModel =
             case loadedModel.soundState of
                 Playing _ ->
                     Html.button
-                        [ Html.Attributes.style "position" "absolute"
-                        , Html.Attributes.style "left" "0"
-                        , Html.Attributes.style "top" "432"
-                        , Html.Attributes.style "width" "400"
-                        , Html.Attributes.style "height" "128"
-                        , Html.Events.onClick PressedStop
+                        [ Html.Events.onClick PressedStop
                         ]
                         [ Html.text "Stop" ]
 
                 _ ->
                     Html.button
-                        [ Html.Attributes.style "position" "absolute"
-                        , Html.Attributes.style "left" "0"
-                        , Html.Attributes.style "top" "432"
-                        , Html.Attributes.style "width" "400"
-                        , Html.Attributes.style "height" "128"
-                        , Html.Events.onClick PressedPlay
+                        [ Html.Events.onClick PressedPlay
                         ]
                         [ Html.text "Start" ]
     in
@@ -196,8 +186,8 @@ progress loadedModel =
             , Svg.Attributes.height "32"
             , Svg.Attributes.viewBox "0 0 400 32"
             ]
-            [ Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width "400", Svg.Attributes.height "32", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "20%" ] []
-            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "64", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "50%" ] []
+            [ Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width "400", Svg.Attributes.height "32", Svg.Attributes.rx "16", Svg.Attributes.ry "16", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "20%" ] []
+            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "64", Svg.Attributes.rx "16", Svg.Attributes.ry "16", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "50%" ] []
             ]
 
 

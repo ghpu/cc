@@ -7734,6 +7734,8 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		$elm$json$Json$Decode$succeed(msg));
 };
 var $elm$svg$Svg$rect = $elm$svg$Svg$trustedNode('rect');
+var $elm$svg$Svg$Attributes$rx = _VirtualDom_attribute('rx');
+var $elm$svg$Svg$Attributes$ry = _VirtualDom_attribute('ry');
 var $elm$svg$Svg$Attributes$x = _VirtualDom_attribute('x');
 var $elm$svg$Svg$Attributes$y = _VirtualDom_attribute('y');
 var $author$project$Main$progress = function (loadedModel) {
@@ -7759,6 +7761,8 @@ var $author$project$Main$progress = function (loadedModel) {
 						$elm$svg$Svg$Attributes$y('0'),
 						$elm$svg$Svg$Attributes$width('400'),
 						$elm$svg$Svg$Attributes$height('32'),
+						$elm$svg$Svg$Attributes$rx('16'),
+						$elm$svg$Svg$Attributes$ry('16'),
 						$elm$svg$Svg$Attributes$fill('white'),
 						$elm$svg$Svg$Attributes$fillOpacity('20%')
 					]),
@@ -7772,6 +7776,8 @@ var $author$project$Main$progress = function (loadedModel) {
 						$elm$svg$Svg$Attributes$width(
 						$elm$core$String$fromInt(prog)),
 						$elm$svg$Svg$Attributes$height('64'),
+						$elm$svg$Svg$Attributes$rx('16'),
+						$elm$svg$Svg$Attributes$ry('16'),
 						$elm$svg$Svg$Attributes$fill('white'),
 						$elm$svg$Svg$Attributes$fillOpacity('50%')
 					]),
@@ -7788,11 +7794,6 @@ var $author$project$Main$exercise_view = function (loadedModel) {
 				$elm$html$Html$button,
 				_List_fromArray(
 					[
-						A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-						A2($elm$html$Html$Attributes$style, 'left', '0'),
-						A2($elm$html$Html$Attributes$style, 'top', '432'),
-						A2($elm$html$Html$Attributes$style, 'width', '400'),
-						A2($elm$html$Html$Attributes$style, 'height', '128'),
 						$elm$html$Html$Events$onClick($author$project$Main$PressedStop)
 					]),
 				_List_fromArray(
@@ -7804,11 +7805,6 @@ var $author$project$Main$exercise_view = function (loadedModel) {
 				$elm$html$Html$button,
 				_List_fromArray(
 					[
-						A2($elm$html$Html$Attributes$style, 'position', 'absolute'),
-						A2($elm$html$Html$Attributes$style, 'left', '0'),
-						A2($elm$html$Html$Attributes$style, 'top', '432'),
-						A2($elm$html$Html$Attributes$style, 'width', '400'),
-						A2($elm$html$Html$Attributes$style, 'height', '128'),
 						$elm$html$Html$Events$onClick($author$project$Main$PressedPlay)
 					]),
 				_List_fromArray(

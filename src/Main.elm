@@ -54,7 +54,7 @@ init _ =
     , Cmd.none
     , Audio.loadAudio
         SoundLoaded
-        "/music.mp3"
+        "music.mp3"
     )
 
 

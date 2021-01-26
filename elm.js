@@ -7819,7 +7819,7 @@ var $author$project$Main$progress = function (loadedModel) {
 						$elm$svg$Svg$Attributes$y('0'),
 						$elm$svg$Svg$Attributes$width(
 						$elm$core$String$fromInt(prog)),
-						$elm$svg$Svg$Attributes$height('64'),
+						$elm$svg$Svg$Attributes$height('32'),
 						$elm$svg$Svg$Attributes$rx('16'),
 						$elm$svg$Svg$Attributes$ry('16'),
 						$elm$svg$Svg$Attributes$fill('white'),

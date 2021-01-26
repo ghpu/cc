@@ -187,7 +187,7 @@ progress loadedModel =
             , Svg.Attributes.viewBox "0 0 400 32"
             ]
             [ Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width "400", Svg.Attributes.height "32", Svg.Attributes.rx "16", Svg.Attributes.ry "16", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "20%" ] []
-            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "64", Svg.Attributes.rx "16", Svg.Attributes.ry "16", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "50%" ] []
+            , Svg.rect [ Svg.Attributes.x "0", Svg.Attributes.y "0", Svg.Attributes.width (String.fromInt prog), Svg.Attributes.height "32", Svg.Attributes.rx "16", Svg.Attributes.ry "16", Svg.Attributes.fill "white", Svg.Attributes.fillOpacity "50%" ] []
             ]
 
 
